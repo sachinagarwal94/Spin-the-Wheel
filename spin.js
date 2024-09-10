@@ -4,18 +4,24 @@ const spinButton = document.getElementById("spin-btn");
 const exportButton = document.getElementById("export-btn");
 const prizes = ["Bonus ₹10,000", "Discount 10%", "Free Coffee", "Trimmer at ₹899", "₹400 off on Fashion", "Polo Perfume"];
 
+let currentRotation = 0; // Track the current rotation angle
+
 // Function to spin the wheel
 spinButton.addEventListener("click", () => {
-  const angle = Math.floor(Math.random() * 360); // Random angle
-  wheel.style.transform = `rotate(${angle}deg)`;
+  const randomSpins = Math.floor(Math.random() * 3600) + 1800; // Random number of spins between 5 and 10 full rotations
+  const prizeIndex = Math.floor(Math.random() * prizes.length); // Random prize index
+
+  const prizeAngle = prizeIndex * (360 / prizes.length); // Calculate the angle of the prize
+  const totalRotation = currentRotation + randomSpins + prizeAngle; // Total rotation includes current rotation and prize angle
   
-  const prizeIndex = Math.floor(angle / (360 / prizes.length)); // Determine which prize
-  const wonPrize = prizes[prizeIndex];
-  
+  wheel.style.transform = `rotate(${totalRotation}deg)`; // Set the rotation on the wheel
+
+  currentRotation = totalRotation % 360; // Update currentRotation for the next spin
+
   setTimeout(() => {
-    alert(`You won: ${wonPrize}`);
-    recordSpin(wonPrize);
-  }, 3000); // Give some time for the spin animation
+    alert(`You won: ${prizes[prizeIndex]}`);
+    recordSpin(prizes[prizeIndex]);
+  }, 4000); // Give enough time for the spin to complete (4s as per CSS transition)
 });
 
 // Function to record each spin
