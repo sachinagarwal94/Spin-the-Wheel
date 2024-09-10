@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spin the Wheel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .wheel {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      position: relative;
+      border: 10px solid #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .wheel-segment {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      background-color: #ffcc00;
+      transform-origin: 100% 100%;
+    }
+
+    #spin-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #export-btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wheel" id="wheel">
+    <div class="wheel-segment" style="background-color: #ff6384; transform: rotate(0deg) skewY(-30deg);"></div>
+    <div class="wheel-segment" style="background-color: #36a2eb; transform: rotate(60deg) skewY(-30deg);"></div>
+    <div class="wheel-segment" style="background-color: #ffce56; transform: rotate(120deg) skewY(-30deg);"></div>
+    <div class="wheel-segment" style="background-color: #4bc0c0; transform: rotate(180deg) skewY(-30deg);"></div>
+    <div class="wheel-segment" style="background-color: #9966ff; transform: rotate(240deg) skewY(-30deg);"></div>
+    <div class="wheel-segment" style="background-color: #ff9f40; transform: rotate(300deg) skewY(-30deg);"></div>
+  </div>
+
+  <button id="spin-btn">Spin</button>
+  <button id="export-btn">Export Data</button>
+
+  <script src="spin.js"></script>
+</body>
+</html>
