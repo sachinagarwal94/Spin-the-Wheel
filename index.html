@@ -5,73 +5,102 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spin the Wheel</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background-color: #f4f4f4;
     }
 
     .wheel {
       width: 300px;
       height: 300px;
       border-radius: 50%;
-      position: relative;
       border: 10px solid #ccc;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      position: relative;
+      transition: transform 5s ease-out;
+    }
+
+    .number {
+      width: 150px;
+      height: 150px;
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1); /* Smooth transition */
-    }
-
-    .wheel-segment {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
       position: absolute;
-      width: 50%;
-      height: 50%;
-      background-color: #ffcc00;
-      transform-origin: 100% 100%;
+      transform: rotate(calc(45deg * var(--i))) translateY(-150px);
+      background-color: var(--clr);
+      clip-path: polygon(50% 0, 100% 100%, 0% 100%);
     }
 
-    #spin-btn {
+    .spinBtn {
       margin-top: 20px;
       padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
+      font-size: 18px;
+      color: white;
       background-color: #28a745;
-      color: white;
       border: none;
       border-radius: 5px;
-    }
-
-    #export-btn {
-      margin-top: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
       cursor: pointer;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
     }
   </style>
 </head>
 <body>
 
-  <div class="wheel" id="wheel">
-    <div class="wheel-segment" style="background-color: #ff6384; transform: rotate(0deg) skewY(-30deg);"></div>
-    <div class="wheel-segment" style="background-color: #36a2eb; transform: rotate(60deg) skewY(-30deg);"></div>
-    <div class="wheel-segment" style="background-color: #ffce56; transform: rotate(120deg) skewY(-30deg);"></div>
-    <div class="wheel-segment" style="background-color: #4bc0c0; transform: rotate(180deg) skewY(-30deg);"></div>
-    <div class="wheel-segment" style="background-color: #9966ff; transform: rotate(240deg) skewY(-30deg);"></div>
-    <div class="wheel-segment" style="background-color: #ff9f40; transform: rotate(300deg) skewY(-30deg);"></div>
+  <div class="container">
+    <div class="wheel" id="wheel">
+      <div class="number" style="--i:1; --clr:#db7093"><span>100</span></div>
+      <div class="number" style="--i:2; --clr:#20b2aa"><span>1</span></div>
+      <div class="number" style="--i:3; --clr:#d63e92"><span>50</span></div>
+      <div class="number" style="--i:4; --clr:#daa520"><span>0</span></div>
+      <div class="number" style="--i:5; --clr:#ff34f0"><span>1000</span></div>
+      <div class="number" style="--i:6; --clr:#ff7f50"><span>10</span></div>
+      <div class="number" style="--i:7; --clr:#3cb371"><span>5</span></div>
+      <div class="number" style="--i:8; --clr:#4169e1"><span>20</span></div>
+    </div>
+
+    <div class="spinBtn" id="spin-btn">Spin</div>
   </div>
 
-  <button id="spin-btn">Spin</button>
-  <button id="export-btn">Export Data</button>
+  <script>
+    const wheel = document.getElementById('wheel');
+    const spinButton = document.getElementById('spin-btn');
+    let currentRotation = 0;
 
-  <script src="spin.js"></script>
+    spinButton.addEventListener('click', () => {
+      // Random degree to rotate between 2000 and 5000 for full spin effect
+      const randomRotation = Math.floor(Math.random() * 3000) + 2000;
+      currentRotation += randomRotation; // Incremental rotation
+
+      // Apply the rotation to the wheel
+      wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+      // Detect the prize after spinning
+      setTimeout(() => {
+        const prizeIndex = Math.floor(((currentRotation % 360) / 360) * 8);
+        const prize = document.querySelector(`.number:nth-child(${prizeIndex + 1}) span`).innerText;
+        alert(`You won: ${prize}`);
+      }, 5000); // Match this with the CSS transition duration (5s)
+    });
+  </script>
+
 </body>
 </html>
