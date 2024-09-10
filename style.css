@@ -1,0 +1,10 @@
+.wheel {
+    transition: transform 5s ease-in-out; /* Smooth transition of 5 seconds */
+}
+
+/* Optional: Button hover effect */
+.spinBtn:hover {
+    background-color: #28a745; /* Slight color change on hover */
+    transform: scale(1.05); /* Scale up the button slightly */
+    transition: all 0.3s ease;
+}
